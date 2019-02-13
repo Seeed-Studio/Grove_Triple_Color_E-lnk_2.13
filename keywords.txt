@@ -1,0 +1,48 @@
+ #######################################
+# Syntax Coloring Map For Grove Triple Color E-Ink Display 2.13
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Epd	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+Init	KEYWORD1
+SendCommand	KEYWORD1
+SendData	KEYWORD1
+sendCommand	KEYWORD1
+WaitUntilIdle	KEYWORD1
+Reset	KEYWORD1
+SetLutBw	KEYWORD1
+SetLutRed	KEYWORD1
+DisplayFrame	KEYWORD1
+Sleep	KEYWORD1
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+EPD_WIDTH	LITERAL1
+EPD_HEIGHT	LITERAL1
+
+PANEL_SETTING	LITERAL1
+POWER_SETTING	LITERAL1
+POWER_OFF  	LITERAL1
+POWER_OFF_SEQUENCE_SETTING 	LITERAL1
+POWER_ON	LITERAL1
+POWER_ON_MEASURE	LITERAL1
+BOOSTER_SOFT_START	LITERAL1
+DEEP_SLEEP	LITERAL1
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+
+
+
