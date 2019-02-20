@@ -32,8 +32,9 @@
 #include <avr/pgmspace.h>
 #include <Wire.h>
 
+//Notice: When using the SAMD board, select the serial port(Serial/Serial1/SerialUSB...)
 #ifdef ARDUINO_SAMD_VARIANT_COMPLIANCE
-  #define SERIAL SerialUSB
+  #define SERIAL Serial
 #else
   #define SERIAL Serial
 #endif
@@ -213,7 +214,7 @@ const unsigned char IMAGE_BLACK[] PROGMEM = { /* 0X00,0X01,0XC8,0X00,0XC8,0X00, 
 0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,
 0XFF,0XFF,0XFF,0XFF,};
 
-const unsigned char IMAGE_RED1[] PROGMEM = { /* 0X00,0X01,0XC8,0X00,0XC8,0X00, */
+const unsigned char IMAGE_RED[] PROGMEM = { /* 0X00,0X01,0XC8,0X00,0XC8,0X00, */
 0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,
 0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,
 0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,
@@ -402,32 +403,6 @@ void serial_send_data(const uint8_t* data,uint32_t data_len)
 	}
 }
 
-//Check for response
-/*int serial_check_resp()
-{
-	uint32_t wait_count=0;
-	uint8_t recv_len=0;
-	uint8_t recv_buf[20]={0};
-	while(0==SERIAL.available())
-	{
-		wait_count++;
-		delay(50);
-		if(wait_count>=100)
-			return RECV_ERROR;
-	}
-	delay(30);
-	recv_len=SERIAL.available();
-	for(int i=0;i<recv_len;i++)
-	{
-		recv_buf[i]=SERIAL.read();
-	}
-	if(strstr(recv_buf,"NEXT"))
-		return CONTINUE_TRANS;
-	else if(strstr(recv_buf,"DONE"))
-		return RECV_DONE;
-	else if(strstr(recv_buf,"ERROR"))
-		return RECV_ERROR;
-}*/
 
 //Send image array
 void write_image_picture(void)
@@ -440,7 +415,7 @@ void write_image_picture(void)
 	delay(90);
 	for(int i=0;i<13;i++)
 	{
-		serial_send_data(&IMAGE_RED1[0+i*212],212);
+		serial_send_data(&IMAGE_RED[0+i*212],212);
 		delay(80);
 	}
 }
