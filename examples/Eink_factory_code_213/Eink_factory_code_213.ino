@@ -1,10 +1,10 @@
 /*
- * Seeed_MCP9600.cpp
+ * Eink_factory_code_213.ino
  * Driver for MCP9600
  *  
  * Copyright (c) 2018 Seeed Technology Co., Ltd.
  * Website    : www.seeed.cc
- * Author     : downey
+ * Author     : Jenkin
  * Create Time: October 2018
  * Change Log :
  *
@@ -34,9 +34,9 @@
 
 //Notice: When using the SAMD board, select the serial port(Serial/Serial1/SerialUSB...)
 #ifdef ARDUINO_SAMD_VARIANT_COMPLIANCE
-  #define SERIAL Serial
+	#define SERIAL Serial
 #else
-  #define SERIAL Serial
+	#define SERIAL Serial
 #endif
 
 const unsigned char IMAGE_BLACK[] PROGMEM = { /* 0X00,0X01,0XC8,0X00,0XC8,0X00, */
@@ -390,59 +390,46 @@ const unsigned char IMAGE_RED[] PROGMEM = { /* 0X00,0X01,0XC8,0X00,0XC8,0X00, */
 0XFF,0XFF,0XFF,0XFF,};
 
 #define RECV_ERROR       -1
-#define CONTINUE_TRANS   0
-#define RECV_DONE        1
+#define CONTINUE_TRANS    0
+#define RECV_DONE         1
 
 
 //Send data to e-link board.
-void serial_send_data(const uint8_t* data,uint32_t data_len)
-{
-	for(int i=0;i<data_len;i++)
-	{
+void serial_send_data(const uint8_t* data,uint32_t data_len) {
+	for(int i = 0; i < data_len; i++) {
 		SERIAL.write(pgm_read_byte(&data[i]));	
 	}
 }
 
-
 //Send image array
-void write_image_picture(void)
-{
-	for(int i=0;i<13;i++)
-	{
+void write_image_picture(void) {
+	for(int i = 0; i < 13; i++) {
 		serial_send_data(&IMAGE_BLACK[0+i*212],212);
 		delay(80);
 	}
 	delay(90);
-	for(int i=0;i<13;i++)
-	{
+	for(int i = 0; i < 13; i++) {
 		serial_send_data(&IMAGE_RED[0+i*212],212);
 		delay(80);
 	}
 }
 
 //Send the start transfer command
-void send_begin()
-{
-	while(1)
-	{	
-		if(SERIAL.available()>0)
-		{
-			char str0=SERIAL.read();
-			if(str0=='c')
-			{
+void send_begin() {
+	while(1) {	
+		if(SERIAL.available() > 0) {
+			char str0 = SERIAL.read();
+			if(str0 == 'c') {
 				break;
 			}
 		}
 	}
-	char str='a';
+	char str = 'a';
 	SERIAL.write(str);
-	while(1)
-	{
-		if(SERIAL.available()>0)
-		{
-			char str1=SERIAL.read();
-			if(str1=='b')
-			{
+	while(1) {
+		if(SERIAL.available() > 0) {
+			char str1 = SERIAL.read();
+			if(str1 == 'b') {
 				break;
 			}
 		}
